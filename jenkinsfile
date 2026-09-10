@@ -9,7 +9,7 @@ pipeline {
 
         stage('1. Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ton-user/ton-repo.git'
+                git branch: 'main', url: 'https://github.com/DarkRider09/Exams-securite-des-donnees'
             }
         }
 
