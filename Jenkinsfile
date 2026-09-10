@@ -26,7 +26,7 @@ pipeline {
         stage('3. Security Analysis - SAST (Semgrep)') {
             steps {
                 sh '''
-                   "/home/darkrider/Bureau/SIMAC/LICENCE 3/SEMESTRE5/securite des application/projet/venv/bin/semgrep" --config=auto --json --output=reports/semgrep-report.json .
+                   semgrep --config=auto --json --output=reports/semgrep-report.json .
                 '''
             }
         }
