@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_URL = 'http://192.168.1.33:3000'
+        PROJECT_REPORTS_DIR = '/home/darkrider/Bureau/SIMAC/LICENCE 3/Semestre_6/Securite_des_donnees/Projet_final/reports'
     }
 
     stages {
@@ -51,6 +52,10 @@ pipeline {
                 sh '''
                     echo "Rapports générés :"
                     ls -la reports/
+                    mkdir -p "${PROJECT_REPORTS_DIR}"
+                    cp -r reports/* "${PROJECT_REPORTS_DIR}/"
+
+                    echo "Rapports copiés vers le dossier du projet."
                 '''
                 archiveArtifacts artifacts: 'reports/*', allowEmptyArchive: true
             }
