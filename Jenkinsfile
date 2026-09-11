@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_URL = 'http://192.168.1.33:3000'
+        PROJECT_REPORTS_DIR = '/home/darkrider/Bureau/SIMAC/LICENCE 3/Semestre_6/Securite_des_donnees/Projet_final/reports'
     }
 
     stages {
@@ -34,6 +35,7 @@ pipeline {
         stage('4. Additional Security Check - DAST (ZAP)') {
             steps {
                 sh '''
+                    chmod -R 777 reports
                     docker run --rm --network host \
                         -v $(pwd)/reports:/zap/wrk/:rw \
                         zaproxy/zap-stable zap-baseline.py \
@@ -50,6 +52,10 @@ pipeline {
                 sh '''
                     echo "Rapports générés :"
                     ls -la reports/
+                    mkdir -p "${PROJECT_REPORTS_DIR}"
+                    cp -r reports/* "${PROJECT_REPORTS_DIR}/"
+
+                    echo "Rapports copiés vers le dossier du projet."
                 '''
                 archiveArtifacts artifacts: 'reports/*', allowEmptyArchive: true
             }
@@ -79,7 +85,7 @@ pipeline {
                             Rapports complets : ${env.BUILD_URL}artifact/reports/
                         """,
                         to: 'alesamb.gueye@unchk.edu.sn',
-                        attachementsPattern: 'reports/*.json',
+                        attachmentsPattern: 'reports/*.json',
                         attachLog: false
                     )
                 }
