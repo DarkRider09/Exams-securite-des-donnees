@@ -34,6 +34,7 @@ pipeline {
         stage('4. Additional Security Check - DAST (ZAP)') {
             steps {
                 sh '''
+                    chmod -R 777 reports
                     docker run --rm --network host \
                         -v $(pwd)/reports:/zap/wrk/:rw \
                         zaproxy/zap-stable zap-baseline.py \
