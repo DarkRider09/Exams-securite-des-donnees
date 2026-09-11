@@ -80,7 +80,7 @@ pipeline {
                             Rapports complets : ${env.BUILD_URL}artifact/reports/
                         """,
                         to: 'alesamb.gueye@unchk.edu.sn',
-                        attachementsPattern: 'reports/*.json',
+                        attachmentsPattern: 'reports/*.json',
                         attachLog: false
                     )
                 }
